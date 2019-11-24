@@ -21,7 +21,7 @@ namespace KBScraper
             using (var driver = new ChromeDriver())
             {
                 // Go to the login page
-                driver.Navigate().GoToUrl("https://kb.xcentric.com/auth/login");
+                driver.Navigate().GoToUrl("");
 
                 // Test Location @ login
                 Console.WriteLine(driver.Title);
@@ -32,8 +32,8 @@ namespace KBScraper
                 var loginButton = driver.FindElementByXPath("//input[@name='login']");
 
                 // Enter user name and password
-                userNameField.SendKeys("pzivojinovic@xcentric.com");
-                userPasswordField.SendKeys("Z!v98521473691");
+                userNameField.SendKeys("");
+                userPasswordField.SendKeys("");
 
                 // click the login button
                 loginButton.Click();
