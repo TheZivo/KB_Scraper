@@ -33,8 +33,8 @@ namespace KBScraper
                 var loginButton = driver.FindElementByXPath("//input[@name='login']");
 
                 // Enter user name and password
-                userNameField.SendKeys("pzivojinovic@xcentric.com");
-                userPasswordField.SendKeys("Z!v985214736912");
+                userNameField.SendKeys("");
+                userPasswordField.SendKeys("");
 
                 // click the login button
                 loginButton.Click();
