@@ -21,10 +21,11 @@ namespace KBScraper
             using (var driver = new ChromeDriver())
             {
                 // Go to the login page
-                driver.Navigate().GoToUrl("");
+                driver.Navigate().GoToUrl("https://kb.xcentric.com/auth/login");
 
                 // Test Location @ login
                 Console.WriteLine(driver.Title);
+                Thread.Sleep(300);
 
                 // Get the login page input elements
                 var userNameField = driver.FindElementById("username");
@@ -32,31 +33,62 @@ namespace KBScraper
                 var loginButton = driver.FindElementByXPath("//input[@name='login']");
 
                 // Enter user name and password
-                userNameField.SendKeys("");
-                userPasswordField.SendKeys("");
+                userNameField.SendKeys("pzivojinovic@xcentric.com");
+                userPasswordField.SendKeys("Z!v985214736912");
 
                 // click the login button
                 loginButton.Click();
 
                 // Test Location post login
                 Console.WriteLine(driver.Title);
-                
+
 
                 //test grabber
                 //varbase
                 Dictionary<string, string> articles = new Dictionary<string, string>();
                 List<string> completed = new List<string>();
-                string title;
-                string url;
-                Console.ReadLine();
-                //navigate to just the single article kb category
-                IWebElement link = driver.FindElement(By.XPath("//a[@name,'How to log in and use this Knowledge Base']"));
+
+
+                //Pause to load 
+                Thread.Sleep(500);
+
+                //navigate to just the specified kb category
+                IWebElement link = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[2]/div/ul/a[4]"));
                 link.Click();
+
+                //Pause to load
+                Thread.Sleep(500);
+
+
+
+                IWebElement DocSelect = driver.FindElement(By.XPath("/html/body/div[3]/div[2]/div[3]/div[1]/ul"));
+
+                IList<IWebElement> documents = DocSelect.FindElements(By.XPath(".//li"));
+
+                Console.WriteLine(documents.Count);
+
+                foreach (var li in documents)
+                {
+                    string t = li.FindElement(By.XPath(".//a//div[1]")).GetAttribute("textContent");
+                    string u = li.FindElement(By.TagName("a")).GetAttribute("href");
+                    
+
+                    articles.Add(t, u);
+
+
+                };
+                
+                
+                                
+                foreach (KeyValuePair<string, string> kvp in articles)
+                {
+                    Console.WriteLine(kvp);
+                }
+
+                driver.Navigate().Back(); 
+
+                Console.WriteLine("exit");
                 Console.ReadLine();
-
-
-
-
             }
         }
     }
